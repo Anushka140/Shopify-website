@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rental Plans</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .plan-save {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .back-home {
+      margin-top: 30px;
+    }
+    .coupon-section {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #ccc;
+    }
+    .coupon-input {
+      margin-top: 20px;
+    }
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    /* Custom button colors to match the theme */
+    .btn-coupon {
+      background-color: #1A73E8;
+      color: white;
+      border: none;
+    }
+    .btn-coupon:hover {
+      background-color: #155a8a;
+    }
+    .btn-coupon-custom {
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
+    .btn-coupon-custom:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">Rental Plans</h1>
+    <p class="text-center">Choose the best plan to start your Shopify journey.</p>
+
+    <div class="row text-center">
+      <!-- Basic Plan -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-4">
+          <h3>Basic Plan</h3>
+          <p><del id="basicOriginalPrice">₹1499/month</del> <span id="basicPrice">₹1249/month</span> + GST</p>
+          <p class="plan-save">Save 16.67%</p>
+          <a href="account-creation.html?plan=basic" class="btn btn-primary">Select Basic Plan</a>
+        </div>
+      </div>
+
+      <!-- Standard Plan -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-4">
+          <h3>Standard Plan</h3>
+          <p><del id="standardOriginalPrice">₹1499/month</del> <span id="standardPrice">₹1149/month</span> + GST</p>
+          <p class="plan-save">Save 23.35%</p>
+          <a href="account-creation.html?plan=standard" class="btn btn-primary">Select Standard Plan</a>
+        </div>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="col-md-4 mb-4">
+        <div class="card p-4">
+          <h3>Premium Plan</h3>
+          <p><del id="premiumOriginalPrice">₹1499/month</del> <span id="premiumPrice">₹999/month</span> + GST</p>
+          <p class="plan-save">Save 33.33%</p>
+          <a href="account-creation.html?plan=premium" class="btn btn-primary">Select Premium Plan</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coupon Section -->
+    <div class="coupon-section text-center">
+      <h4>Apply Coupon</h4>
+
+      <div class="d-flex justify-content-center">
+        <!-- Button for predefined coupon options -->
+        <button class="btn btn-coupon dropdown-toggle" type="button" id="couponDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Select Coupon
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="couponDropdown">
+          <li><a class="dropdown-item" href="#" onclick="applyCoupon('SBI Credit Card', 100)">SBI Credit Card - ₹100 off</a></li>
+          <li><a class="dropdown-item" href="#" onclick="applyCoupon('Amazon Pay', 150)">Amazon Pay - ₹150 off</a></li>
+          <li><a class="dropdown-item" href="#" onclick="applyCoupon('DIWALI2025', 200)">DIWALI2025 - ₹200 off</a></li>
+          <li><a class="dropdown-item" href="#" onclick="applyCoupon('FLAT50', 50)">FLAT50 - ₹50 off</a></li>
+        </ul>
+
+        <!-- Custom Coupon Input -->
+        <input type="text" id="customCoupon" class="form-control mx-2" placeholder="Enter your own coupon code" style="max-width: 200px;">
+        <button class="btn btn-coupon-custom" onclick="applyCustomCoupon()">Apply Custom Coupon</button>
+      </div>
+
+      <p id="couponMessage" class="mt-3"></p>
+    </div>
+
+    <div class="text-center back-home">
+      <a href="index.html" class="btn btn-secondary">Back to Home</a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function applyCoupon(couponName, discount) {
+      var message = document.getElementById("couponMessage");
+      var priceElements = document.querySelectorAll('.plan-price');
+      priceElements.forEach(function (priceElement) {
+        var originalPriceText = priceElement.previousElementSibling.querySelector('del').textContent;
+        var originalPrice = parseFloat(originalPriceText.replace('₹', '').replace('/month', '').trim());
+        var discountedPrice = originalPrice - discount;
+
+        priceElement.textContent = "₹" + discountedPrice.toFixed(2) + "/month";
+      });
+      message.textContent = couponName + " applied! You get ₹" + discount + " off on your next payment.";
+      message.style.color = "green";
+    }
+
+    function applyCustomCoupon() {
+      var customCode = document.getElementById("customCoupon").value;
+      var message = document.getElementById("couponMessage");
+
+      // Custom coupon validation (you can adjust these values as needed)
+      var discount = 0;
+      if (customCode === 'MYCOUPON50') {
+        discount = 50;
+      } else if (customCode === 'MYCOUPON100') {
+        discount = 100;
+      } else if (customCode === 'MYCOUPON200') {
+        discount = 200;
+      } else {
+        message.textContent = "Invalid coupon code!";
+        message.style.color = "red";
+        return;
+      }
+
+      var priceElements = document.querySelectorAll('.plan-price');
+      priceElements.forEach(function (priceElement) {
+        var originalPriceText = priceElement.previousElementSibling.querySelector('del').textContent;
+        var originalPrice = parseFloat(originalPriceText.replace('₹', '').replace('/month', '').trim());
+        var discountedPrice = originalPrice - discount;
+
+        priceElement.textContent = "₹" + discountedPrice.toFixed(2) + "/month";
+      });
+
+      message.textContent = customCode + " applied! You get ₹" + discount + " off on your next payment.";
+      message.style.color = "green";
+    }
+  </script>
+</body>
+</html>

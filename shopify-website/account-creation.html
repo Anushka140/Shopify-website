@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .plan-save {
+      color: #28a745;
+      font-weight: bold;
+    }
+    .back-home {
+      margin-top: 30px;
+    }
+    .success-message {
+      display: none;
+      background-color: #28a745;
+      color: white;
+      padding: 10px;
+      margin-top: 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center mb-4">Create Your Account</h1>
+    <p class="text-center">Enter your details to start your journey with us.</p>
+
+    <div class="row text-center">
+      <!-- Account Creation Form -->
+      <div class="col-md-6 offset-md-3 mb-4">
+        <div class="card p-4">
+          <h3>Create Account</h3>
+          <form id="accountForm">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email (Gmail)</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your Gmail" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+      Your account has been created successfully!
+    </div>
+
+    <div class="text-center back-home">
+      <a href="rental-plans.html" class="btn btn-secondary">Back to Rental Plans</a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('accountForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission to allow for message display
+
+      // Simple email validation (check if it ends with @gmail.com)
+      const email = document.getElementById('email').value;
+      if (!email.includes('@gmail.com')) {
+        alert('Please enter a valid Gmail address.');
+        return;
+      }
+
+      // Show success message after form submission
+      document.getElementById('successMessage').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
